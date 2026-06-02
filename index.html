@@ -1301,152 +1301,214 @@
       gap: 1.6rem;
     }
 
+    /* ── Cert card shell ── */
     .cert-card {
-      background: rgba(10, 10, 20, 0.4);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(8, 8, 18, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s, border-color 0.4s;
       will-change: transform;
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
+      cursor: pointer;
     }
 
     .cert-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      border-color: rgba(0, 212, 255, 0.4);
-      box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15), inset 0 0 20px rgba(0, 212, 255, 0.1);
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.7), 0 0 0 1px currentColor;
     }
 
-    /* PDF preview thumbnail */
-    .cert-thumb {
-      width: 100%;
-      height: 160px;
-      background: var(--bg3);
-      border-bottom: 1px solid var(--border2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* ── Header visual zone ── */
+    .cert-header {
       position: relative;
-      overflow: hidden;
-    }
-
-    .cert-thumb iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      pointer-events: none;
-      transform: scale(1);
-      transform-origin: top left;
-    }
-
-    .cert-thumb-placeholder {
+      height: 200px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 0.8rem;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, var(--bg3), var(--bg2));
+      overflow: hidden;
+      background: linear-gradient(160deg, #05050c 0%, #0c0c1e 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    .cert-thumb-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 12px;
+    /* Dot-grid texture */
+    .cert-header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    /* Radial glow behind badge */
+    .cert-glow {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.14;
+      filter: blur(45px);
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+
+    .cert-card:hover .cert-glow {
+      opacity: 0.3;
+    }
+
+    /* Provider tag */
+    .cert-provider-tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      color: rgba(255, 255, 255, 0.32);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      padding: 0.2rem 0.55rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    /* Circular badge */
+    .cert-badge {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      transition: all 0.3s;
+      gap: 0.18rem;
+      position: relative;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1.5px solid currentColor;
+      box-shadow: 0 0 22px -5px currentColor, inset 0 0 18px rgba(0,0,0,0.7);
+      transition: transform 0.4s, box-shadow 0.4s;
+      flex-shrink: 0;
     }
 
-    .cert-thumb-placeholder span {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--muted);
+    .cert-card:hover .cert-badge {
+      transform: scale(1.07);
+      box-shadow: 0 0 40px -4px currentColor, inset 0 0 18px rgba(0,0,0,0.6);
     }
 
+    .cert-badge svg {
+      width: 27px;
+      height: 27px;
+      flex-shrink: 0;
+    }
+
+    .cert-badge-abbr {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    .cert-header-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.67rem;
+      color: rgba(255, 255, 255, 0.35);
+      text-align: center;
+      padding: 0 1.4rem;
+      line-height: 1.5;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* PDF hover overlay */
     .cert-pdf-overlay {
       position: absolute;
       inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(5, 5, 8, 0.7);
+      gap: 0.5rem;
+      background: rgba(5, 5, 10, 0.78);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       opacity: 0;
       transition: opacity 0.3s;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
-      color: var(--accent);
-      gap: 0.4rem;
+      font-weight: 600;
+      z-index: 3;
     }
 
     .cert-card:hover .cert-pdf-overlay {
       opacity: 1;
     }
 
-    .cert-body {
-      padding: 1.4rem 1.6rem;
-      flex: 1;
+    /* ── Footer info zone ── */
+    .cert-footer {
+      padding: 1.3rem 1.5rem 1.5rem;
       display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .cert-logo-sm {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      font-weight: 800;
-      text-align: center;
-      line-height: 1.2;
-      transition: all 0.3s;
-    }
-
-    .cert-card:hover .cert-logo-sm {
-      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.15);
-    }
-
-    .cert-info {
+      flex-direction: column;
+      gap: 0.22rem;
       flex: 1;
-      min-width: 0;
     }
 
-    .cert-title {
-      font-size: 0.92rem;
-      font-weight: 600;
+    .cert-name {
+      font-size: 0.91rem;
+      font-weight: 700;
       color: var(--text);
-      margin-bottom: 0.3rem;
       line-height: 1.4;
+      margin: 0;
     }
 
-    .cert-issuer {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--muted);
-    }
-
-    .cert-date {
+    .cert-org {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.65rem;
-      color: var(--accent);
-      margin-top: 0.25rem;
+      color: var(--muted);
+      margin: 0.1rem 0 0;
+    }
+
+    .cert-when {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 600;
+      margin: 0.35rem 0 0;
+    }
+
+    .cert-open-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.63rem;
+      font-weight: 600;
+      padding: 0.28rem 0.7rem;
+      border-radius: 5px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent;
+      transition: background 0.2s, border-color 0.2s;
+      width: fit-content;
+      text-decoration: none;
+    }
+
+    .cert-card:hover .cert-open-chip {
+      background: rgba(255,255,255,0.06);
+      border-color: currentColor;
     }
 
     /* ══════════════════════════════════════════════════
@@ -2424,6 +2486,10 @@
       z-index: 1;
     }
 
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
     .spinner {
       width: 40px;
       height: 40px;
@@ -2676,7 +2742,7 @@
           <!-- TryHackMe Stats -->
           <div class="thm-stats-card">
             <div class="thm-header" style="margin-bottom: 1rem;">
-              <img src="assets/images/logo tryhack.png" alt="TryHackMe Logo" style="width: 32px; height: 32px;">
+              <img src="assets/images/logo tryhack.png" alt="TryHackMe Logo" style="height: 32px; width: auto; object-fit: contain;">
               <h3 style="font-size: 1.4rem;">TryHackMe Stats — Mimo1</h3>
             </div>
             <div class="thm-body" id="thmBody" style="display: block; text-align: center;">
@@ -3244,178 +3310,196 @@
 
       <div class="certs-grid">
 
-        <!-- Cisco: Networking Basics -->
-        <a href="assets/certifs/1733144440901.pdf" target="_blank" rel="noopener noreferrer" class="cert-card reveal">
-          <div class="cert-thumb">
-            <div class="cert-thumb-placeholder">
-              <div class="cert-thumb-icon"
-                style="background: rgba(0,168,224,0.12); border: 1px solid rgba(0,168,224,0.3); color: #00a8e0;">NET
-              </div>
-              <span>Networking Basics — Cisco</span>
+        <!-- NET — Networking Basics (Cisco) — PDF disponible -->
+        <a href="assets/certifs/1733144440901.pdf" target="_blank" rel="noopener noreferrer"
+           class="cert-card reveal" style="color:#00a8e0;">
+          <div class="cert-header">
+            <div class="cert-glow" style="background:#00a8e0;"></div>
+            <span class="cert-provider-tag">Cisco</span>
+            <div class="cert-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="4.5" r="2.5"/><circle cx="4.5" cy="18.5" r="2.5"/><circle cx="19.5" cy="18.5" r="2.5"/>
+                <path d="M12 7v5.5M12 12.5l-5.5 3.8M12 12.5l5.5 3.8"/>
+              </svg>
+              <span class="cert-badge-abbr">NET</span>
             </div>
+            <p class="cert-header-label">Networking Basics</p>
             <div class="cert-pdf-overlay">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                <polyline points="15 3 21 3 21 9" />
-                <line x1="10" y1="14" x2="21" y2="3" />
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
               </svg>
-              Ouvrir le PDF
+              Ouvrir le certificat
             </div>
           </div>
-          <div class="cert-body">
-            <div class="cert-logo-sm"
-              style="background: rgba(0,168,224,0.1); border: 1px solid rgba(0,168,224,0.25); color: #00a8e0;">NET</div>
-            <div class="cert-info">
-              <div class="cert-title">Networking Basics</div>
-              <div class="cert-issuer">Cisco Networking Academy</div>
-              <div class="cert-date">Délivré : nov. 2024</div>
-            </div>
+          <div class="cert-footer">
+            <p class="cert-name">Networking Basics</p>
+            <p class="cert-org">Cisco Networking Academy</p>
+            <p class="cert-when" style="color:#00a8e0;">Délivré : nov. 2024</p>
+            <span class="cert-open-chip" style="color:#00a8e0;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              Voir le certificat
+            </span>
           </div>
         </a>
 
-        <!-- Cisco: Ethical Hacker -->
-        <a href="assets/certifs/1733144353582.pdf" target="_blank" rel="noopener noreferrer" class="cert-card reveal">
-          <div class="cert-thumb">
-            <div class="cert-thumb-placeholder">
-              <div class="cert-thumb-icon"
-                style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #ef4444;">ETH
-              </div>
-              <span>Ethical Hacker — Cisco</span>
+        <!-- ETH — Ethical Hacker (Cisco) — PDF disponible -->
+        <a href="assets/certifs/1733144353582.pdf" target="_blank" rel="noopener noreferrer"
+           class="cert-card reveal" style="color:#ef4444;">
+          <div class="cert-header">
+            <div class="cert-glow" style="background:#ef4444;"></div>
+            <span class="cert-provider-tag">Cisco</span>
+            <div class="cert-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="3" y="3" width="18" height="18" rx="3"/>
+                <path d="M7 9l3 3-3 3M13 15h4"/>
+              </svg>
+              <span class="cert-badge-abbr">ETH</span>
             </div>
+            <p class="cert-header-label">Ethical Hacker</p>
             <div class="cert-pdf-overlay">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                <polyline points="15 3 21 3 21 9" />
-                <line x1="10" y1="14" x2="21" y2="3" />
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
               </svg>
-              Ouvrir le PDF
+              Ouvrir le certificat
             </div>
           </div>
-          <div class="cert-body">
-            <div class="cert-logo-sm"
-              style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #ef4444;">ETH</div>
-            <div class="cert-info">
-              <div class="cert-title">Ethical Hacker</div>
-              <div class="cert-issuer">Cisco Networking Academy</div>
-              <div class="cert-date">Délivré : nov. 2024</div>
-            </div>
+          <div class="cert-footer">
+            <p class="cert-name">Ethical Hacker</p>
+            <p class="cert-org">Cisco Networking Academy</p>
+            <p class="cert-when" style="color:#ef4444;">Délivré : nov. 2024</p>
+            <span class="cert-open-chip" style="color:#ef4444;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              Voir le certificat
+            </span>
           </div>
         </a>
 
-        <!-- Cisco: Intro to Cybersecurity -->
-        <a href="assets/certifs/1733144503386.pdf" target="_blank" rel="noopener noreferrer" class="cert-card reveal">
-          <div class="cert-thumb">
-            <div class="cert-thumb-placeholder">
-              <div class="cert-thumb-icon"
-                style="background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.3); color: #7c3aed;">CYB
-              </div>
-              <span>Intro to Cybersecurity — Cisco</span>
+        <!-- CYB — Intro to Cybersecurity (Cisco) — PDF disponible -->
+        <a href="assets/certifs/1733144503386.pdf" target="_blank" rel="noopener noreferrer"
+           class="cert-card reveal" style="color:#7c3aed;">
+          <div class="cert-header">
+            <div class="cert-glow" style="background:#7c3aed;"></div>
+            <span class="cert-provider-tag">Cisco</span>
+            <div class="cert-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+              <span class="cert-badge-abbr">CYB</span>
             </div>
+            <p class="cert-header-label">Introduction to Cybersecurity</p>
             <div class="cert-pdf-overlay">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                <polyline points="15 3 21 3 21 9" />
-                <line x1="10" y1="14" x2="21" y2="3" />
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
               </svg>
-              Ouvrir le PDF
+              Ouvrir le certificat
             </div>
           </div>
-          <div class="cert-body">
-            <div class="cert-logo-sm"
-              style="background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.3); color: #7c3aed;">CYB
-            </div>
-            <div class="cert-info">
-              <div class="cert-title">Introduction to Cybersecurity</div>
-              <div class="cert-issuer">Cisco Networking Academy</div>
-              <div class="cert-date">Délivré : nov. 2024</div>
-            </div>
+          <div class="cert-footer">
+            <p class="cert-name">Introduction to Cybersecurity</p>
+            <p class="cert-org">Cisco Networking Academy</p>
+            <p class="cert-when" style="color:#7c3aed;">Délivré : nov. 2024</p>
+            <span class="cert-open-chip" style="color:#7c3aed;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              Voir le certificat
+            </span>
           </div>
         </a>
 
-        <!-- IoT -->
-        <div class="cert-card reveal">
-          <div class="cert-thumb">
-            <div class="cert-thumb-placeholder">
-              <div class="cert-thumb-icon"
-                style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #10b981;">IoT
-              </div>
-              <span>Introduction to IoT — Cisco</span>
+        <!-- IoT — Introduction to IoT (Cisco) -->
+        <div class="cert-card reveal" style="color:#10b981;">
+          <div class="cert-header">
+            <div class="cert-glow" style="background:#10b981;"></div>
+            <span class="cert-provider-tag">Cisco</span>
+            <div class="cert-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="7" y="7" width="10" height="10" rx="1"/>
+                <path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/>
+              </svg>
+              <span class="cert-badge-abbr">IoT</span>
             </div>
+            <p class="cert-header-label">Introduction to IoT</p>
           </div>
-          <div class="cert-body">
-            <div class="cert-logo-sm"
-              style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #10b981;">IoT
-            </div>
-            <div class="cert-info">
-              <div class="cert-title">Introduction to IoT</div>
-              <div class="cert-issuer">Cisco Networking Academy</div>
-              <div class="cert-date">Délivré : juin 2025</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- OpenClassrooms: VPN/Firewall -->
-        <div class="cert-card reveal">
-          <div class="cert-thumb">
-            <div class="cert-thumb-placeholder">
-              <div class="cert-thumb-icon"
-                style="background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); color: #f59e0b;">VPN
-              </div>
-              <span>VPN & Firewall — OpenClassrooms</span>
-            </div>
-          </div>
-          <div class="cert-body">
-            <div class="cert-logo-sm"
-              style="background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); color: #f59e0b;">VPN
-            </div>
-            <div class="cert-info">
-              <div class="cert-title">Sécurisez votre réseau grâce aux VPN et Firewall</div>
-              <div class="cert-issuer">OpenClassrooms · ID: 8242953882</div>
-              <div class="cert-date">Délivré : mars 2026</div>
-            </div>
+          <div class="cert-footer">
+            <p class="cert-name">Introduction to IoT</p>
+            <p class="cert-org">Cisco Networking Academy</p>
+            <p class="cert-when" style="color:#10b981;">Délivré : juin 2025</p>
           </div>
         </div>
 
-        <!-- OpenClassrooms: Sensibilisation cyber -->
-        <div class="cert-card reveal">
-          <div class="cert-thumb">
-            <div class="cert-thumb-placeholder">
-              <div class="cert-thumb-icon"
-                style="background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); color: #00d4ff;">SEC
-              </div>
-              <span>Sensibilisation Cyber — OpenClassrooms</span>
+        <!-- VPN — VPN & Firewall (OpenClassrooms) -->
+        <div class="cert-card reveal" style="color:#f59e0b;">
+          <div class="cert-header">
+            <div class="cert-glow" style="background:#f59e0b;"></div>
+            <span class="cert-provider-tag">OpenClassrooms</span>
+            <div class="cert-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="5" y="11" width="14" height="11" rx="2"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+                <circle cx="12" cy="16" r="1.5" fill="currentColor"/>
+              </svg>
+              <span class="cert-badge-abbr">VPN</span>
             </div>
+            <p class="cert-header-label">VPN & Firewall</p>
           </div>
-          <div class="cert-body">
-            <div class="cert-logo-sm"
-              style="background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); color: #00d4ff;">SEC</div>
-            <div class="cert-info">
-              <div class="cert-title">Sensibilisez efficacement à la cybersécurité</div>
-              <div class="cert-issuer">OpenClassrooms · ID: 9066457630</div>
-              <div class="cert-date">Délivré : mars 2026</div>
-            </div>
+          <div class="cert-footer">
+            <p class="cert-name">Sécurisez votre réseau grâce aux VPN et Firewall</p>
+            <p class="cert-org">OpenClassrooms · ID: 8242953882</p>
+            <p class="cert-when" style="color:#f59e0b;">Délivré : mars 2026</p>
           </div>
         </div>
 
-        <!-- OpenClassrooms: Python -->
-        <div class="cert-card reveal">
-          <div class="cert-thumb">
-            <div class="cert-thumb-placeholder">
-              <div class="cert-thumb-icon"
-                style="background: rgba(55,118,171,0.1); border: 1px solid rgba(55,118,171,0.3); color: #3776ab;">PYT
-              </div>
-              <span>Python Data — OpenClassrooms</span>
+        <!-- SEC — Sensibilisation Cyber (OpenClassrooms) -->
+        <div class="cert-card reveal" style="color:#00d4ff;">
+          <div class="cert-header">
+            <div class="cert-glow" style="background:#00d4ff;"></div>
+            <span class="cert-provider-tag">OpenClassrooms</span>
+            <div class="cert-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <span class="cert-badge-abbr">SEC</span>
             </div>
+            <p class="cert-header-label">Sensibilisation à la cybersécurité</p>
           </div>
-          <div class="cert-body">
-            <div class="cert-logo-sm"
-              style="background: rgba(55,118,171,0.1); border: 1px solid rgba(55,118,171,0.3); color: #3776ab;">PYT
+          <div class="cert-footer">
+            <p class="cert-name">Sensibilisez efficacement à la cybersécurité</p>
+            <p class="cert-org">OpenClassrooms · ID: 9066457630</p>
+            <p class="cert-when" style="color:#00d4ff;">Délivré : mars 2026</p>
+          </div>
+        </div>
+
+        <!-- PYT — Python Data (OpenClassrooms) -->
+        <div class="cert-card reveal" style="color:#3776ab;">
+          <div class="cert-header">
+            <div class="cert-glow" style="background:#3776ab;"></div>
+            <span class="cert-provider-tag">OpenClassrooms</span>
+            <div class="cert-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+              <span class="cert-badge-abbr">PYT</span>
             </div>
-            <div class="cert-info">
-              <div class="cert-title">Initiez-vous à Python pour l'analyse de données</div>
-              <div class="cert-issuer">OpenClassrooms · ID: 6869976166</div>
-              <div class="cert-date">Délivré : févr. 2026</div>
-            </div>
+            <p class="cert-header-label">Python pour l'analyse de données</p>
+          </div>
+          <div class="cert-footer">
+            <p class="cert-name">Initiez-vous à Python pour l'analyse de données</p>
+            <p class="cert-org">OpenClassrooms · ID: 6869976166</p>
+            <p class="cert-when" style="color:#3776ab;">Délivré : févr. 2026</p>
           </div>
         </div>
 
