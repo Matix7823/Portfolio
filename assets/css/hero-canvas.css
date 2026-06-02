@@ -1,33 +1,83 @@
-/* CSS dédié au canvas interactif du Hero */
+/* ══════════════════════════════════════════════════════════════
+   HERO CANVAS — Telemetry Network Background
+   Structure : canvas (z:0) < content (z:2)
+   Le canvas capte la souris ; le texte laisse passer les clics.
+══════════════════════════════════════════════════════════════ */
+
+/* ── Canvas itself ─────────────────────────────────────────── */
 #heroCanvas {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* Placé juste au-dessus du background de base, mais sous le contenu */
-  pointer-events: auto; /* Permet au canvas de capter les événements souris */
+  display: block;
+
+  /* Behind text, above CSS background */
+  z-index: 0;
+
+  /* Canvas receives mouse events for interaction */
+  pointer-events: auto;
+
+  /* GPU-composited layer — prevents repaints on scroll */
+  will-change: transform;
 }
 
-/* On s'assure que la section hero a les bonnes propriétés pour contenir le canvas */
+/* ── Hero section must be the positioning context ──────────── */
 .hero {
   position: relative !important;
   overflow: hidden !important;
 }
 
-/* Le contenu au-dessus du canvas doit rester interactif mais laisser passer la souris là où il n'y a rien */
-.hero-content {
-  position: relative;
-  z-index: 2; /* S'assure que le texte est au-dessus du canvas */
-  pointer-events: none; /* Laisse passer les clics vers le canvas si on clique à côté du texte */
+/* ── Vignette: soft radial darkness at edges for depth ─────── */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;          /* between canvas and text */
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 90% 75% at 50% 50%,
+    transparent 35%,
+    rgba(5, 5, 8, 0.55) 100%
+  );
 }
 
-/* Les éléments interactifs (boutons, inputs, cartes) doivent retrouver leurs pointer-events */
-.hero-content .cta,
-.hero-content .hero-card,
-.hero-content .terminal-overlay,
-.hero-content button,
+/* ── Hero text/card wrapper ─────────────────────────────────── */
+.hero-content {
+  position: relative;
+  z-index: 2;          /* above canvas and vignette */
+
+  /* Let cursor reach the canvas where there is no interactive child */
+  pointer-events: none;
+}
+
+/* ── Re-enable pointer events on interactive children ──────── */
 .hero-content a,
-.hero-content input {
+.hero-content button,
+.hero-content input,
+.hero-content select,
+.hero-content textarea,
+.hero-content .hero-card,
+.hero-content .cta-primary,
+.hero-content .cta-secondary,
+.hero-content [role="button"] {
   pointer-events: auto;
+}
+
+/* ── Mobile: lighter canvas, reduce GPU load ────────────────── */
+@media (max-width: 768px) {
+  #heroCanvas {
+    opacity: 0.75;
+  }
+  /* No vignette on mobile to save a composite layer */
+  .hero::after {
+    display: none;
+  }
+}
+
+/* ── Reduced-motion: freeze canvas animation gracefully ─────── */
+@media (prefers-reduced-motion: reduce) {
+  #heroCanvas {
+    display: none;
+  }
 }
