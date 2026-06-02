@@ -15,6 +15,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link rel="stylesheet" href="assets/css/hero-canvas.css">
   <style>
     /* ══════════════════════════════════════════════════
    DESIGN TOKENS
@@ -2373,8 +2374,9 @@
   </nav>
 
   <!-- ═══════════════════════ HERO ═══════════════════════ -->
-  <section id="hero">
-    <div class="hero-wrap">
+  <section id="hero" class="hero">
+    <canvas id="heroCanvas"></canvas>
+    <div class="hero-wrap hero-content">
       <!-- LEFT: Text -->
       <div class="hero-text">
         <div class="hero-badge">
@@ -2508,9 +2510,7 @@
           <!-- TryHackMe Stats -->
           <div class="thm-stats-card">
             <div class="thm-header" style="margin-bottom: 1rem;">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 32px; height: 32px;">
-                <path d="M11.666 0v24L24 18.067V5.933zM0 6v12.217l10.428 4.757v-23.2z" />
-              </svg>
+              <img src="assets/images/logo tryhack.png" alt="TryHackMe Logo" style="width: 32px; height: 32px;">
               <h3 style="font-size: 1.4rem;">TryHackMe Stats — Mimo1</h3>
             </div>
             <div class="thm-body" id="thmBody" style="display: block; text-align: center;">
@@ -4044,6 +4044,7 @@
 
 
   <!-- FLAG{b3st_s0c_an4lyst} -->
+  <script src="assets/js/hero-canvas.js" defer></script>
 </body>
 
 </html>

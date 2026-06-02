@@ -1,0 +1,33 @@
+/* CSS dédié au canvas interactif du Hero */
+#heroCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Placé juste au-dessus du background de base, mais sous le contenu */
+  pointer-events: auto; /* Permet au canvas de capter les événements souris */
+}
+
+/* On s'assure que la section hero a les bonnes propriétés pour contenir le canvas */
+.hero {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Le contenu au-dessus du canvas doit rester interactif mais laisser passer la souris là où il n'y a rien */
+.hero-content {
+  position: relative;
+  z-index: 2; /* S'assure que le texte est au-dessus du canvas */
+  pointer-events: none; /* Laisse passer les clics vers le canvas si on clique à côté du texte */
+}
+
+/* Les éléments interactifs (boutons, inputs, cartes) doivent retrouver leurs pointer-events */
+.hero-content .cta,
+.hero-content .hero-card,
+.hero-content .terminal-overlay,
+.hero-content button,
+.hero-content a,
+.hero-content input {
+  pointer-events: auto;
+}
