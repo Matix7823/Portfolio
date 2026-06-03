@@ -412,13 +412,41 @@ document.querySelectorAll('.project-preview iframe').forEach(iframe => {
 
   // Nav Bar Search Logic
   const navSearchInput = document.getElementById('nav-search-input');
-  if (navSearchInput) {
+  const navSearchContainer = document.querySelector('.nav-search-container');
+  
+  if (navSearchInput && navSearchContainer) {
+    // Focus input when clicking the container
+    navSearchContainer.addEventListener('click', () => {
+      navSearchInput.focus();
+    });
+
+    const performSearch = () => {
+      const val = navSearchInput.value.trim();
+      if (val) {
+        // Try to find the text
+        let found = window.find(val, false, false, true, false, true, false);
+        
+        // If not found, clear selection and try again from top (for Safari/Chrome quirks)
+        if (!found) {
+          window.getSelection().removeAllRanges();
+          window.scrollTo(0, 0);
+          found = window.find(val, false, false, true, false, true, false);
+        }
+        
+        // Visual feedback if not found
+        if (!found) {
+          navSearchInput.style.color = 'var(--red)';
+          setTimeout(() => { navSearchInput.style.color = 'var(--text)'; }, 800);
+        } else {
+          navSearchInput.style.color = 'var(--text)';
+        }
+      }
+    };
+
     navSearchInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        const val = navSearchInput.value.trim();
-        if (val) {
-          window.find(val);
-        }
+        e.preventDefault();
+        performSearch();
       }
     });
   }
