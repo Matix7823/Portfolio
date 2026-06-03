@@ -116,7 +116,7 @@ document.querySelectorAll('.project-preview iframe').forEach(iframe => {
     try {
       const doc = iframe.contentDocument;
       if (!doc || doc.body.innerHTML.trim() === '') throw new Error('empty');
-    } catch(e) {
+    } catch (e) {
       // cross-origin or blocked — show nice fallback
     }
   });
@@ -126,42 +126,42 @@ document.querySelectorAll('.project-preview iframe').forEach(iframe => {
    Pure Canvas 2D with perspective projection — floating
    language "chips" drifting in 3D space, no dependencies.
    ────────────────────────────────────────────────────── */
-(function() {
+(function () {
   const wrapper = document.getElementById('skills-3d-wrapper');
-  const canvas  = document.getElementById('skills-3d-canvas');
+  const canvas = document.getElementById('skills-3d-canvas');
   if (!wrapper || !canvas) return;
 
   const ctx = canvas.getContext('2d');
   let W, H, raf;
 
   const SKILLS = [
-    { label: 'Python',      color: '#3776ab' },
-    { label: 'Bash',        color: '#4eaa25' },
-    { label: 'PowerShell',  color: '#5391fe' },
-    { label: 'C++',         color: '#0078d4' },
-    { label: 'SQL',         color: '#00758f' },
-    { label: 'Java',        color: '#f89820' },
-    { label: 'Go',          color: '#00adb5' },
-    { label: 'JavaScript',  color: '#c9a800' },
-    { label: 'HTML / CSS',  color: '#e34f26' },
-    { label: 'Linux',       color: '#1a6cf5' },
-    { label: 'Windows',     color: '#00adef' },
-    { label: 'Pentesting',  color: '#e02424' },
-    { label: 'SIEM / EDR',  color: '#e84d1c' },
-    { label: 'ISO 27001',   color: '#0e9f6e' },
-    { label: 'Réseaux',     color: '#7c3aed' },
+    { label: 'Python', color: '#3776ab' },
+    { label: 'Bash', color: '#4eaa25' },
+    { label: 'PowerShell', color: '#5391fe' },
+    { label: 'C++', color: '#0078d4' },
+    { label: 'SQL', color: '#00758f' },
+    { label: 'Java', color: '#f89820' },
+    { label: 'Go', color: '#00adb5' },
+    { label: 'JavaScript', color: '#c9a800' },
+    { label: 'HTML / CSS', color: '#e34f26' },
+    { label: 'Linux', color: '#1a6cf5' },
+    { label: 'Windows', color: '#00adef' },
+    { label: 'Pentesting', color: '#e02424' },
+    { label: 'SIEM / EDR', color: '#e84d1c' },
+    { label: 'ISO 27001', color: '#0e9f6e' },
+    { label: 'Réseaux', color: '#7c3aed' },
     { label: 'Gestion crise', color: '#9d174d' },
   ];
 
   // Build particles on a sphere shell
   const phi = Math.PI * (3 - Math.sqrt(5));
   const particles = SKILLS.map((s, i) => {
-    const y  = 1 - (i / (SKILLS.length - 1)) * 2;
-    const r  = Math.sqrt(1 - y * y);
+    const y = 1 - (i / (SKILLS.length - 1)) * 2;
+    const r = Math.sqrt(1 - y * y);
     const th = phi * i;
     return {
-      label:  s.label,
-      color:  s.color,
+      label: s.label,
+      color: s.color,
       x3: Math.cos(th) * r,
       y3: y,
       z3: Math.sin(th) * r,
@@ -175,17 +175,17 @@ document.querySelectorAll('.project-preview iframe').forEach(iframe => {
   let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
 
   function resize() {
-    W = canvas.width  = wrapper.clientWidth;
+    W = canvas.width = wrapper.clientWidth;
     H = canvas.height = wrapper.clientHeight;
   }
 
   function getThemeColors() {
     const dark = document.documentElement.getAttribute('data-theme') === 'dark';
     return {
-      bg:       dark ? '#1c1c1c' : '#ffffff',
-      text:     dark ? '#f2ede6' : '#1a1916',
-      muted:    dark ? '#888078' : '#76726a',
-      border:   dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)',
+      bg: dark ? '#1c1c1c' : '#ffffff',
+      text: dark ? '#f2ede6' : '#1a1916',
+      muted: dark ? '#888078' : '#76726a',
+      border: dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)',
     };
   }
 
@@ -200,8 +200,8 @@ document.querySelectorAll('.project-preview iframe').forEach(iframe => {
     let y2 = y1 * cosX - z1 * sinX;
     let z2 = y1 * sinX + z1 * cosX;
     // Perspective
-    const fov   = W * 0.9;
-    const dist  = 3.2;
+    const fov = W * 0.9;
+    const dist = 3.2;
     const scale = fov / (dist - z2);
     return {
       sx: W / 2 + x1 * scale,
@@ -223,7 +223,7 @@ document.querySelectorAll('.project-preview iframe').forEach(iframe => {
     ctx.lineTo(x, y + r);
     ctx.quadraticCurveTo(x, y, x + r, y);
     ctx.closePath();
-    if (fill)   { ctx.fillStyle = fill;   ctx.fill(); }
+    if (fill) { ctx.fillStyle = fill; ctx.fill(); }
     if (stroke) { ctx.strokeStyle = stroke; ctx.stroke(); }
   }
 
@@ -254,7 +254,7 @@ document.querySelectorAll('.project-preview iframe').forEach(iframe => {
       for (let j = i + 1; j < projected.length; j++) {
         const a = projected[i], b = projected[j];
         const dx = a.sx - b.sx, dy = a.sy - b.sy;
-        const dd = Math.sqrt(dx*dx + dy*dy);
+        const dd = Math.sqrt(dx * dx + dy * dy);
         if (dd < 130) {
           const alpha = (1 - dd / 130) * 0.12;
           ctx.beginPath();
@@ -348,15 +348,15 @@ document.querySelectorAll('.project-preview iframe').forEach(iframe => {
       const proj = project(p.x3, p.y3, p.z3, rotX, rotY);
       const s = Math.max(0.5, Math.min(1.4, proj.scale / (W * 0.28)));
       const padX = 12 * s, padY = 6 * s;
-      canvas.getContext('2d').font = `500 ${Math.round(11*s)}px DM Mono`;
+      canvas.getContext('2d').font = `500 ${Math.round(11 * s)}px DM Mono`;
       const tw = canvas.getContext('2d').measureText(p.label).width;
-      const cw = tw + padX * 2, ch = Math.round(11*s) + padY * 2;
+      const cw = tw + padX * 2, ch = Math.round(11 * s) + padY * 2;
       return { i, sx: proj.sx, sy: proj.sy, cw, ch };
     });
 
     hoveredIdx = -1;
     projected.forEach(({ i, sx, sy, cw, ch }) => {
-      if (mx >= sx - cw/2 && mx <= sx + cw/2 && my >= sy - ch/2 && my <= sy + ch/2) {
+      if (mx >= sx - cw / 2 && mx <= sx + cw / 2 && my >= sy - ch / 2 && my <= sy + ch / 2) {
         hoveredIdx = i;
       }
     });
@@ -369,9 +369,145 @@ document.querySelectorAll('.project-preview iframe').forEach(iframe => {
   });
 
   // Watch theme changes
-  new MutationObserver(() => {}).observe(document.documentElement, { attributes: true });
+  new MutationObserver(() => { }).observe(document.documentElement, { attributes: true });
 
   resize();
   window.addEventListener('resize', resize);
   draw();
+
+  // Page Visibility API - Optimisation des performances
+  document.addEventListener('visibilitychange', () => {
+    const p = window.tsParticles ? window.tsParticles.domItem(0) : null;
+    if (document.hidden) {
+      cancelAnimationFrame(raf);
+      if (p) p.pause();
+    } else {
+      draw();
+      if (p) p.play();
+    }
+  });
+
+  // Hacker Mode (Konami Code)
+  const secretCode = ['h', 'a', 'c', 'k'];
+  let secretPos = 0;
+  document.addEventListener('keydown', (e) => {
+    if (e.key.toLowerCase() === secretCode[secretPos]) {
+      secretPos++;
+      if (secretPos === secretCode.length) {
+        document.body.classList.toggle('hacker-mode');
+        secretPos = 0;
+      }
+    } else {
+      secretPos = 0;
+    }
+  });
+
+  // Threat Intel Widget
+  const tiContent = document.getElementById('ti-content');
+  if (tiContent) {
+    const mockThreats = [
+      { title: "Critical RCE Vulnerability in Popular Framework (CVE-2026-1045)", date: "2 mins ago", link: "#" },
+      { title: "New Ransomware Strain Targets Active Directory Infrastructures", date: "1 hour ago", link: "#" },
+      { title: "Zero-Day Exploit Found in Web Servers Disclosed", date: "3 hours ago", link: "#" }
+    ];
+    
+    setTimeout(() => {
+      tiContent.innerHTML = mockThreats.map(t => `
+        <div class="ti-item">
+          <a href="${t.link}" target="_blank">${t.title}</a>
+          <span class="ti-date">${t.date}</span>
+        </div>
+      `).join('');
+    }, 1500);
+  }
+
+  // CV Download Animation
+  const btnCv = document.getElementById('btn-download-cv');
+  const cvModal = document.getElementById('cv-modal');
+  const cvModalBody = document.getElementById('cv-modal-body');
+  
+  if (btnCv && cvModal && cvModalBody) {
+    btnCv.addEventListener('click', (e) => {
+      e.preventDefault();
+      cvModal.classList.add('active');
+      cvModalBody.innerHTML = '';
+      
+      const lines = [
+        "> Analyse du fichier en cours...",
+        "> 0 malware détecté.",
+        "> Fichier déchiffré.",
+        "> Début du téléchargement..."
+      ];
+      
+      let delay = 0;
+      lines.forEach((line) => {
+        setTimeout(() => {
+          cvModalBody.innerHTML += `<div>${line}</div>`;
+        }, delay);
+        delay += 600;
+      });
+      
+      setTimeout(() => {
+        cvModal.classList.remove('active');
+        const a = document.createElement('a');
+        a.href = "assets/CV_Mathis_Ducarois.pdf"; 
+        a.download = "CV_Mathis_Ducarois.pdf";
+        a.click();
+      }, delay + 800);
+    });
+  }
+
+  // Terminal Search Modal (Ctrl+K)
+  const searchModal = document.getElementById('search-modal');
+  const terminalInput = document.getElementById('terminal-input');
+  const terminalOutput = document.getElementById('terminal-output');
+
+  if (searchModal && terminalInput && terminalOutput) {
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        searchModal.classList.add('active');
+        setTimeout(() => terminalInput.focus(), 100);
+      }
+      if (e.key === 'Escape' && searchModal.classList.contains('active')) {
+        searchModal.classList.remove('active');
+        terminalInput.value = '';
+        terminalOutput.innerHTML = '';
+      }
+    });
+    
+    searchModal.addEventListener('click', (e) => {
+      if (e.target === searchModal) {
+        searchModal.classList.remove('active');
+      }
+    });
+
+    terminalInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const val = terminalInput.value.trim();
+        terminalOutput.innerHTML = '';
+        
+        if (val === 'cd /skills') {
+          searchModal.classList.remove('active');
+          const section = document.getElementById('skills');
+          if (section) section.scrollIntoView({ behavior: 'smooth' });
+        } else if (val === 'cat contact.txt') {
+          searchModal.classList.remove('active');
+          const section = document.getElementById('contact');
+          if (section) section.scrollIntoView({ behavior: 'smooth' });
+        } else if (val.startsWith('sudo')) {
+          terminalOutput.innerHTML = 'ERREUR: Cet incident sera signalé.';
+        } else if (val) {
+          // Native search equivalent
+          searchModal.classList.remove('active');
+          setTimeout(() => {
+            window.find(val);
+          }, 300);
+        }
+        if (!val.startsWith('sudo')) {
+          terminalInput.value = '';
+        }
+      }
+    });
+  }
 })();

@@ -7,6 +7,21 @@
   <title>Mathis Ducarois — Étudiant Cybersécurité · Ynov Paris</title>
   <meta name="description"
     content="Portfolio de Mathis Ducarois, étudiant en Bachelor Cybersécurité à Ynov Campus Paris. Expertise en pentesting, SIEM, ISO 27001 et réseaux.">
+
+  <!-- Open Graph / LinkedIn / Discord -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://portfolio.mathis7823.workers.dev/">
+  <meta property="og:title" content="Mathis Ducarois — Étudiant Cybersécurité">
+  <meta property="og:description"
+    content="Portfolio de Mathis Ducarois, étudiant en Bachelor Cybersécurité à Ynov Campus Paris. Expertise en pentesting, SIEM, ISO 27001 et réseaux.">
+  <meta property="og:image" content="https://portfolio.mathis7823.workers.dev/assets/images/preview.png">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mathis Ducarois — Étudiant Cybersécurité">
+  <meta name="twitter:description" content="Portfolio de Mathis Ducarois, étudiant en Bachelor Cybersécurité.">
+  <meta name="twitter:image" content="https://portfolio.mathis7823.workers.dev/assets/images/preview.png">
+
   <link rel="icon" type="image/png" href="assets/images/f1-logo.png">
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
@@ -266,10 +281,11 @@
       position: relative;
     }
 
-    .nav-links a:hover, .nav-links a.active {
+    .nav-links a:hover,
+    .nav-links a.active {
       color: var(--text);
     }
-    
+
     .nav-links a.active {
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
@@ -330,11 +346,11 @@
     .hamburger.open span:nth-child(1) {
       transform: translateY(8px) rotate(45deg);
     }
-    
+
     .hamburger.open span:nth-child(2) {
       opacity: 0;
     }
-    
+
     .hamburger.open span:nth-child(3) {
       transform: translateY(-8px) rotate(-45deg);
     }
@@ -1947,9 +1963,9 @@
       margin-top: 0.5rem;
       user-select: none;
       touch-action: none;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,0.2);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
     }
-    
+
     .s2s-fill {
       position: absolute;
       top: 0;
@@ -1959,7 +1975,7 @@
       background: var(--accent);
       z-index: 1;
     }
-    
+
     .s2s-label {
       position: absolute;
       inset: 0;
@@ -1976,7 +1992,7 @@
       pointer-events: none;
       transition: opacity 0.2s;
     }
-    
+
     .s2s-thumb {
       position: absolute;
       top: 3px;
@@ -1993,9 +2009,9 @@
       z-index: 3;
       color: var(--accent);
       transition: transform 0.2s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
-    
+
     .s2s-thumb:active {
       cursor: grabbing;
       transform: scale(0.95);
@@ -2007,7 +2023,8 @@
 
     /* ── LIMELIGHT NAV ── */
     .limelight-indicator {
-      position: absolute; /* Relative to the nav */
+      position: absolute;
+      /* Relative to the nav */
       top: 50%;
       left: 0;
       height: 38px;
@@ -2017,7 +2034,8 @@
       border-radius: 100px;
       box-shadow: 0 4px 15px rgba(0, 212, 255, 0.1), inset 0 0 15px rgba(0, 212, 255, 0.05);
       pointer-events: none;
-      z-index: -1; /* Behind links */
+      z-index: -1;
+      /* Behind links */
       transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
       opacity: 0;
     }
@@ -2165,7 +2183,7 @@
       transform: translateY(30px);
       position: relative;
     }
-    
+
     .mobile-nav a::before {
       content: attr(data-text);
       position: absolute;
@@ -2188,7 +2206,7 @@
       -webkit-text-stroke: 1px rgba(0, 212, 255, 0.8);
       color: transparent;
     }
-    
+
     .mobile-nav a:hover::before {
       width: 100%;
       color: var(--accent);
@@ -2196,13 +2214,30 @@
     }
 
     /* Staggered animation delays */
-    .mobile-nav a:nth-child(1) { transition-delay: 0.1s; }
-    .mobile-nav a:nth-child(2) { transition-delay: 0.15s; }
-    .mobile-nav a:nth-child(3) { transition-delay: 0.2s; }
-    .mobile-nav a:nth-child(4) { transition-delay: 0.25s; }
-    .mobile-nav a:nth-child(5) { transition-delay: 0.3s; }
-    .mobile-nav a:nth-child(6) { transition-delay: 0.35s; }
-    
+    .mobile-nav a:nth-child(1) {
+      transition-delay: 0.1s;
+    }
+
+    .mobile-nav a:nth-child(2) {
+      transition-delay: 0.15s;
+    }
+
+    .mobile-nav a:nth-child(3) {
+      transition-delay: 0.2s;
+    }
+
+    .mobile-nav a:nth-child(4) {
+      transition-delay: 0.25s;
+    }
+
+    .mobile-nav a:nth-child(5) {
+      transition-delay: 0.3s;
+    }
+
+    .mobile-nav a:nth-child(6) {
+      transition-delay: 0.35s;
+    }
+
     .mobile-nav-close {
       display: none;
     }
@@ -2230,7 +2265,7 @@
         padding: 0 1.5rem;
         height: 70px;
       }
-      
+
       nav.scrolled {
         width: calc(100% - 30px);
         height: 60px;
@@ -2241,7 +2276,7 @@
       .nav-links {
         display: none;
       }
-      
+
       .nav-contact-btn {
         display: none;
       }
@@ -2767,14 +2802,14 @@
     .hero-lamp-left {
       right: 50%;
       background: conic-gradient(from 70deg at center top,
-        rgba(0,212,255,0.6), transparent 60%);
+          rgba(0, 212, 255, 0.6), transparent 60%);
       animation: lampBreathe 5s ease-in-out infinite alternate;
     }
 
     .hero-lamp-right {
       left: 50%;
       background: conic-gradient(from 290deg at center top,
-        rgba(0,212,255,0.6), transparent 60%);
+          rgba(0, 212, 255, 0.6), transparent 60%);
       animation: lampBreathe 5s ease-in-out 2.5s infinite alternate;
     }
 
@@ -2786,7 +2821,7 @@
       width: min(28rem, 50vw);
       height: 2.5rem;
       border-radius: 50%;
-      background: rgba(0,212,255,0.55);
+      background: rgba(0, 212, 255, 0.55);
       filter: blur(38px);
       animation: lampPulse 5s ease-in-out infinite alternate;
     }
@@ -2798,17 +2833,32 @@
       transform: translateX(-50%);
       width: min(30rem, 55vw);
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(0,212,255,0.85), transparent);
-      box-shadow: 0 0 18px rgba(0,212,255,0.5);
+      background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.85), transparent);
+      box-shadow: 0 0 18px rgba(0, 212, 255, 0.5);
     }
 
     @keyframes lampBreathe {
-      from { opacity: 0.4; width: min(32rem, 44vw); }
-      to   { opacity: 0.7; width: min(46rem, 62vw); }
+      from {
+        opacity: 0.4;
+        width: min(32rem, 44vw);
+      }
+
+      to {
+        opacity: 0.7;
+        width: min(46rem, 62vw);
+      }
     }
+
     @keyframes lampPulse {
-      from { opacity: 0.4; width: min(20rem, 35vw); }
-      to   { opacity: 0.75; width: min(34rem, 55vw); }
+      from {
+        opacity: 0.4;
+        width: min(20rem, 35vw);
+      }
+
+      to {
+        opacity: 0.75;
+        width: min(34rem, 55vw);
+      }
     }
 
     /* ════════════════════════════════════════════════
@@ -2833,7 +2883,9 @@
       transition: color 0.25s;
     }
 
-    .hero-scroll-down:hover { color: var(--accent); }
+    .hero-scroll-down:hover {
+      color: var(--accent);
+    }
 
     .hero-scroll-down svg {
       animation: arrowBounce 2.2s ease-in-out infinite;
@@ -2846,8 +2898,17 @@
     }
 
     @keyframes arrowBounce {
-      0%, 100% { transform: translateY(0); opacity: 0.6; }
-      50%       { transform: translateY(6px); opacity: 1; }
+
+      0%,
+      100% {
+        transform: translateY(0);
+        opacity: 0.6;
+      }
+
+      50% {
+        transform: translateY(6px);
+        opacity: 1;
+      }
     }
 
     /* ════════════════════════════════════════════════
@@ -2864,8 +2925,253 @@
     }
 
     @media (max-width: 900px) {
-      .hero-lamp { display: none; }
-      .hero-scroll-down { bottom: 1.2rem; }
+      .hero-lamp {
+        display: none;
+      }
+
+      .hero-scroll-down {
+        bottom: 1.2rem;
+      }
+    }
+
+    /* ══════════════════════════════════════════════════
+       HACKER MODE (KONAMI CODE)
+    ══════════════════════════════════════════════════ */
+    body.hacker-mode {
+      --bg: #000000;
+      --bg2: #050505;
+      --bg3: #0a0a0a;
+      --surface: rgba(0, 20, 0, 0.8);
+      --surface2: rgba(0, 30, 0, 0.9);
+      --border: rgba(0, 255, 0, 0.3);
+      --border2: rgba(0, 255, 0, 0.15);
+      --text: #00ff00;
+      --text2: #00cc00;
+      --muted: #007700;
+      --accent: #00ff00;
+      --accent2: #00ff00;
+      --accent-glow: rgba(0, 255, 0, 0.4);
+      --accent-soft: rgba(0, 255, 0, 0.1);
+      --shadow-lg: 0 0 20px rgba(0, 255, 0, 0.2);
+    }
+    
+    body.hacker-mode * {
+      font-family: 'JetBrains Mono', monospace !important;
+    }
+    
+    body.hacker-mode .cosmic-bg::before {
+      background: repeating-linear-gradient(0deg, rgba(0, 255, 0, 0.05) 0px, rgba(0, 255, 0, 0.05) 1px, transparent 1px, transparent 4px) !important;
+      animation: none !important;
+    }
+
+    body.hacker-mode .grid-overlay {
+      background-image: linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px) !important;
+    }
+
+    /* ══════════════════════════════════════════════════
+       TERMINAL SEARCH MODAL (Ctrl+K)
+    ══════════════════════════════════════════════════ */
+    .search-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 10000;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 15vh;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .search-modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .search-modal-content {
+      width: 90%;
+      max-width: 650px;
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 212, 255, 0.1);
+      transform: scale(0.95);
+      transition: transform 0.2s;
+    }
+    .search-modal-overlay.active .search-modal-content {
+      transform: scale(1);
+    }
+    .search-modal-body {
+      padding: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .search-prompt {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: #fff;
+    }
+    .prompt-user { color: #27c93f; }
+    .prompt-path { color: #5391fe; }
+    #terminal-input {
+      background: transparent;
+      border: none;
+      color: #0f0;
+      font-family: inherit;
+      font-size: 0.9rem;
+      flex: 1;
+      outline: none;
+    }
+    .terminal-output {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: #ff5f56;
+      white-space: pre-wrap;
+    }
+    
+    /* ══════════════════════════════════════════════════
+       CV DOWNLOAD MODAL
+    ══════════════════════════════════════════════════ */
+    .cv-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .cv-modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .cv-modal-content {
+      width: 90%;
+      max-width: 500px;
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+    .cv-modal-overlay.active .cv-modal-content {
+      transform: translateY(0);
+    }
+    .cv-modal-header {
+      background: #151515;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 1px solid #222;
+    }
+    .cv-modal-dots { display: flex; gap: 6px; }
+    .cv-modal-dots span { width: 10px; height: 10px; border-radius: 50%; }
+    .cv-modal-dots span:nth-child(1) { background: #ff5f56; }
+    .cv-modal-dots span:nth-child(2) { background: #ffbd2e; }
+    .cv-modal-dots span:nth-child(3) { background: #27c93f; }
+    .cv-modal-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #888;
+    }
+    .cv-modal-body {
+      padding: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #0f0;
+      min-height: 120px;
+      line-height: 1.6;
+    }
+
+    /* ══════════════════════════════════════════════════
+       THREAT INTEL WIDGET
+    ══════════════════════════════════════════════════ */
+    .threat-intel-widget {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 320px;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      z-index: 100;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(150%);
+      animation: slideUpWidget 1s forwards 2s;
+    }
+
+    @keyframes slideUpWidget {
+      to { transform: translateY(0); }
+    }
+
+    .ti-header {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.6rem 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border2);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .ti-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--red);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--red);
+      animation: pulse 2s infinite;
+    }
+
+    .ti-content {
+      padding: 0.8rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      max-height: 120px;
+      overflow-y: auto;
+    }
+
+    .ti-content::-webkit-scrollbar { width: 4px; }
+    .ti-content::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
+
+    .ti-item {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      color: var(--text2);
+      line-height: 1.4;
+      border-left: 2px solid var(--accent-soft);
+      padding-left: 0.6rem;
+      transition: border-color 0.3s;
+    }
+    .ti-item:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+    .ti-item a { text-decoration: none; color: inherit; display: block; }
+    .ti-date {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
     }
   </style>
 </head>
@@ -2875,6 +3181,46 @@
   <!-- COSMIC BACKGROUND -->
   <div class="cosmic-bg"></div>
   <div class="grid-overlay"></div>
+
+  <!-- THREAT INTEL WIDGET -->
+  <div class="threat-intel-widget">
+    <div class="ti-header">
+      <div class="ti-dot"></div>
+      <span>Live Threat Intel</span>
+    </div>
+    <div class="ti-content" id="ti-content">
+      <div class="ti-item">Fetching latest CVEs...</div>
+    </div>
+  </div>
+
+  <!-- CV DOWNLOAD MODAL -->
+  <div class="cv-modal-overlay" id="cv-modal">
+    <div class="cv-modal-content">
+      <div class="cv-modal-header">
+        <div class="cv-modal-dots"><span></span><span></span><span></span></div>
+        <span class="cv-modal-title">Terminal - secure_download.sh</span>
+      </div>
+      <div class="cv-modal-body" id="cv-modal-body">
+      </div>
+    </div>
+  </div>
+
+  <!-- TERMINAL SEARCH MODAL -->
+  <div class="search-modal-overlay" id="search-modal">
+    <div class="search-modal-content">
+      <div class="cv-modal-header">
+        <div class="cv-modal-dots"><span></span><span></span><span></span></div>
+        <span class="cv-modal-title">Terminal - Navigation</span>
+      </div>
+      <div class="search-modal-body">
+        <div class="search-prompt">
+          <span class="prompt-user">user@cyber:</span><span class="prompt-path">~</span>$ 
+          <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" autofocus>
+        </div>
+        <div id="terminal-output" class="terminal-output"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- MOBILE NAV -->
   <div class="mobile-nav" id="mobileNav">
@@ -3024,7 +3370,7 @@
       <span>Découvrir</span>
       <div class="hero-scroll-down-line"></div>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <polyline points="6 9 12 15 18 9"/>
+        <polyline points="6 9 12 15 18 9" />
       </svg>
     </a>
   </section>
@@ -3044,7 +3390,7 @@
             <p>Étudiant en <strong>Bachelor Cybersécurité à Ynov Campus Paris</strong>, j'ai à cœur de développer mon
               expertise en sécurité informatique.</p>
             <p>J'aborde la sécurité avec rigueur et réactivité — <strong>chaque détail compte, comme en Formule
-                1</strong>. C'est stages à la <span class="accent-word">Caisse des Dépôts</span> et chez<span
+                1</strong>. C'est stages à la <span class="accent-word">Caisse des Dépôts</span> et chez <span
                 class="accent-word">DHM Tech</span> m'ont permis de toucher au pentesting, à la gestion de crise, et au
               développement web complet.</p>
             <p>Sérieux, dynamique et motivé, je veux contribuer concrètement à la sécurité d'une infrastructure,
@@ -4100,7 +4446,7 @@
         closeMobileNav();
       }
     });
-    
+
     function closeMobileNav() {
       hamburgerBtn.classList.remove('open');
       mobileNavEl.classList.remove('open');
@@ -4180,10 +4526,10 @@
         currentX = e.clientX - startX;
         if (currentX < 0) currentX = 0;
         if (currentX > maxSlide) currentX = maxSlide;
-        
+
         s2sThumb.style.transform = `translateX(${currentX}px)`;
         s2sFill.style.width = (currentX + s2sThumb.clientWidth / 2) + 'px';
-        
+
         // Fade out label
         s2sLabel.style.opacity = 1 - (currentX / maxSlide) * 1.5;
 
@@ -4194,18 +4540,18 @@
           s2sThumb.releasePointerCapture(e.pointerId);
           s2sThumb.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
           s2sFill.style.transition = 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s';
-          
+
           currentX = maxSlide;
           s2sThumb.style.transform = `translateX(${currentX}px)`;
           s2sFill.style.width = '100%';
           slideToSend.classList.add('success');
-          
+
           s2sLabel.textContent = 'Message préparé !';
           s2sLabel.style.opacity = 1;
-          
+
           // Trigger click
           submitBtn.click();
-          
+
           // Auto reset after 4 seconds
           setTimeout(() => {
             success = false;
@@ -4223,7 +4569,7 @@
         if (!isDragging || success) return;
         isDragging = false;
         s2sThumb.releasePointerCapture(e.pointerId);
-        
+
         // Snap back
         s2sThumb.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
         s2sFill.style.transition = 'width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
@@ -4232,7 +4578,7 @@
         s2sFill.style.width = '0px';
         s2sLabel.style.opacity = 1;
       });
-      
+
       s2sThumb.addEventListener('pointercancel', (e) => {
         if (!isDragging || success) return;
         isDragging = false;
@@ -4251,7 +4597,7 @@
     const navLinksContainer = document.getElementById('navLinks');
     const mainNavLinks = document.querySelectorAll('.nav-links > li > a');
     const sections = Array.from(mainNavLinks).map(a => document.querySelector(a.getAttribute('href')));
-    
+
     function moveLimelight(el) {
       if (!el || !limelightIndicator) {
         if (limelightIndicator) limelightIndicator.style.opacity = 0;
@@ -4276,7 +4622,7 @@
           mainNavLinks.forEach(l => l.classList.remove('active'));
           activeLink = document.querySelector(`.nav-links a[href="#${id}"]`);
           if (activeLink) activeLink.classList.add('active');
-          
+
           if (!hoveredLink) {
             moveLimelight(activeLink);
           }
@@ -4871,47 +5217,47 @@
 
   <!-- ═══════ SPOTLIGHT CARDS ═══════ -->
   <script>
-  (function () {
-    'use strict';
+    (function () {
+      'use strict';
 
-    /* ─────────────────────────────────────────────────────────
-       SPOTLIGHT CARDS
-       Radial glow following mouse cursor on every card
-    ───────────────────────────────────────────────────────── */
-    function initSpotlight() {
-      const selectors = [
-        '.proj-card', '.cert-card', '.edu-card',
-        '.tl-card', '.contact-form-card', '#heroCard'
-      ];
-      const cards = document.querySelectorAll(selectors.join(','));
+      /* ─────────────────────────────────────────────────────────
+         SPOTLIGHT CARDS
+         Radial glow following mouse cursor on every card
+      ───────────────────────────────────────────────────────── */
+      function initSpotlight() {
+        const selectors = [
+          '.proj-card', '.cert-card', '.edu-card',
+          '.tl-card', '.contact-form-card', '#heroCard'
+        ];
+        const cards = document.querySelectorAll(selectors.join(','));
 
-      cards.forEach(card => {
-        // Ensure position is set
-        const pos = getComputedStyle(card).position;
-        if (pos === 'static') card.style.position = 'relative';
+        cards.forEach(card => {
+          // Ensure position is set
+          const pos = getComputedStyle(card).position;
+          if (pos === 'static') card.style.position = 'relative';
 
-        const overlay = document.createElement('div');
-        overlay.className = 'spotlight-overlay';
-        card.appendChild(overlay);
+          const overlay = document.createElement('div');
+          overlay.className = 'spotlight-overlay';
+          card.appendChild(overlay);
 
-        card.addEventListener('mousemove', (e) => {
-          const r  = card.getBoundingClientRect();
-          const x  = e.clientX - r.left;
-          const y  = e.clientY - r.top;
-          overlay.style.background =
-            `radial-gradient(380px circle at ${x}px ${y}px,
+          card.addEventListener('mousemove', (e) => {
+            const r = card.getBoundingClientRect();
+            const x = e.clientX - r.left;
+            const y = e.clientY - r.top;
+            overlay.style.background =
+              `radial-gradient(380px circle at ${x}px ${y}px,
               rgba(0,212,255,0.09), transparent 60%)`;
-          overlay.style.opacity = '1';
-        }, { passive: true });
+            overlay.style.opacity = '1';
+          }, { passive: true });
 
-        card.addEventListener('mouseleave', () => {
-          overlay.style.opacity = '0';
+          card.addEventListener('mouseleave', () => {
+            overlay.style.opacity = '0';
+          });
         });
-      });
-    }
-    initSpotlight();
+      }
+      initSpotlight();
 
-  })();
+    })();
   </script>
 
   <!-- FLAG{b3st_s0c_an4lyst} -->
