@@ -2905,7 +2905,6 @@
     </ul>
 
     <div class="nav-right">
-      <a href="#contact" class="nav-contact-btn">Me Contacter</a>
       <div class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
       </div>
@@ -4283,7 +4282,7 @@
           }
         }
       });
-    }, { threshold: 0.5 });
+    }, { rootMargin: "-10% 0px -80% 0px" });
 
     sections.forEach(sec => {
       if (sec) sectionObserver2.observe(sec);
