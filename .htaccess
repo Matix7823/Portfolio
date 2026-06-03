@@ -1,2 +1,2 @@
-# Prevent access to the .git directory and all its contents
+# Block access to .git directory
 RedirectMatch 404 /\.git
