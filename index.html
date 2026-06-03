@@ -5014,9 +5014,19 @@
       termBody.scrollTop = termBody.scrollHeight;
     }
 
+    const termCommands = ['help', 'whoami', 'ls', 'cat', 'sudo', 'submit_flag', 'clear'];
+
     if (termInput) {
       termInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          const val = termInput.value.toLowerCase();
+          const match = termCommands.find(c => c.startsWith(val));
+          if (match) {
+            termInput.value = match;
+          }
+        }
+        else if (e.key === 'Enter') {
           const val = termInput.value.trim();
           printTerm(`sysadmin@ducarois:~$ ${val}`);
           termInput.value = '';
