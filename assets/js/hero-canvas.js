@@ -579,8 +579,10 @@
   }, 2400);
 
   // ── MAIN LOOP ────────────────────────────────────────────────────
+  let isHeroVisible = true;
   function loop(now) {
     requestAnimationFrame(loop);
+    if (!isHeroVisible) return;
     ctx.clearRect(0, 0, W, H);
 
     // -2  Background glow (DNSSight-inspired ellipse)
@@ -626,6 +628,17 @@
   // ── INIT ─────────────────────────────────────────────────────────
   canvas.style.background = 'transparent';
   resize();
+
+  const heroSection = document.getElementById('hero');
+  if (heroSection) {
+    const observerHero = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        isHeroVisible = e.isIntersecting;
+      });
+    }, { threshold: 0 });
+    observerHero.observe(heroSection);
+  }
+
   requestAnimationFrame(loop);
 
 })();
