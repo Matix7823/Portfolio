@@ -410,15 +410,15 @@ document.querySelectorAll('.project-preview iframe').forEach(iframe => {
     });
   });
 
-  // Open Terminal Search from Nav Button
-  const btnOpenSearch = document.getElementById('btn-open-search');
-  if (btnOpenSearch) {
-    btnOpenSearch.addEventListener('click', () => {
-      const searchModal = document.getElementById('search-modal');
-      const terminalInput = document.getElementById('terminal-input');
-      if (searchModal && terminalInput) {
-        searchModal.classList.add('active');
-        setTimeout(() => terminalInput.focus(), 100);
+  // Nav Bar Search Logic
+  const navSearchInput = document.getElementById('nav-search-input');
+  if (navSearchInput) {
+    navSearchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const val = navSearchInput.value.trim();
+        if (val) {
+          window.find(val);
+        }
       }
     });
   }
@@ -498,9 +498,12 @@ document.querySelectorAll('.project-preview iframe').forEach(iframe => {
           const section = document.getElementById('contact');
           if (section) section.scrollIntoView({ behavior: 'smooth' });
         } else if (val === 'help') {
-          terminalOutput.innerHTML = `Commandes disponibles :\n  cd /skills      - Aller à la section Compétences\n  cat contact.txt - Aller à la section Contact\n  clear           - Effacer le terminal\n  sudo            - [ACCÈS REFUSÉ]\n  [mot]           - Recherche textuelle`;
+          terminalOutput.innerHTML = `Commandes disponibles :\n  cd /skills      - Aller à la section Compétences\n  cat contact.txt - Aller à la section Contact\n  clear           - Effacer le terminal\n  exit            - Quitter le terminal\n  sudo            - [ACCÈS REFUSÉ]\n  [mot]           - Recherche textuelle`;
         } else if (val === 'clear') {
           terminalOutput.innerHTML = '';
+        } else if (val === 'exit' || val === 'quit') {
+          searchModal.classList.remove('active');
+          terminalInput.value = '';
         } else if (val.startsWith('sudo')) {
           terminalOutput.innerHTML = 'ERREUR: Cet incident sera signalé.';
         } else if (val) {

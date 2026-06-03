@@ -3093,28 +3093,62 @@
       line-height: 1.6;
     }
 
-    .close-modal { cursor: pointer; transition: transform 0.2s; }
-    .close-modal:hover { transform: scale(1.2); }
-    .terminal-intro { font-size: 0.85rem; color: #888; margin-bottom: 0.5rem; }
-    .nav-search-btn {
+    .close-modal {
+      cursor: pointer; 
+      transition: transform 0.2s;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 212, 255, 0.1);
-      border: 1px solid rgba(0, 212, 255, 0.2);
-      color: var(--accent);
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
+    }
+    .close-modal::before, .close-modal::after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 1.5px;
+      background: rgba(0,0,0,0.6);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .close-modal::before { transform: rotate(45deg); }
+    .close-modal::after { transform: rotate(-45deg); }
+    .close-modal:hover { transform: scale(1.2); }
+    .close-modal:hover::before, .close-modal:hover::after { opacity: 1; }
+    .terminal-intro { font-size: 0.85rem; color: #888; margin-bottom: 0.5rem; }
+    .nav-search-container {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.3rem 0.8rem;
+      gap: 0.5rem;
       transition: all 0.3s ease;
-      cursor: pointer;
     }
-    .nav-search-btn:hover {
-      background: var(--accent);
-      color: #000;
-      box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
-      transform: scale(1.05);
+    .nav-search-container:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+      background: rgba(0, 212, 255, 0.05);
     }
+    .nav-search-container svg {
+      color: var(--muted);
+      transition: color 0.3s;
+    }
+    .nav-search-container:focus-within svg {
+      color: var(--accent);
+    }
+    #nav-search-input {
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      width: 120px;
+      outline: none;
+      transition: width 0.3s ease;
+    }
+    #nav-search-input::placeholder { color: var(--muted); }
+    #nav-search-input:focus { width: 160px; }
   </style>
 </head>
 
@@ -3194,12 +3228,13 @@
     </ul>
 
     <div class="nav-right">
-      <button class="nav-search-btn" id="btn-open-search" aria-label="Recherche">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="4 17 10 11 4 5"></polyline>
-          <line x1="12" y1="19" x2="20" y2="19"></line>
+      <div class="nav-search-container">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-      </button>
+        <input type="text" id="nav-search-input" placeholder="Rechercher..." autocomplete="off">
+      </div>
       <div class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
       </div>
