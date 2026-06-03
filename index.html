@@ -3093,85 +3093,27 @@
       line-height: 1.6;
     }
 
-    /* ══════════════════════════════════════════════════
-       THREAT INTEL WIDGET
-    ══════════════════════════════════════════════════ */
-    .threat-intel-widget {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      width: 320px;
-      background: rgba(10, 10, 15, 0.85);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      z-index: 100;
-      overflow: hidden;
-      box-shadow: var(--shadow-lg);
-      transform: translateY(150%);
-      animation: slideUpWidget 1s forwards 2s;
-    }
-
-    @keyframes slideUpWidget {
-      to { transform: translateY(0); }
-    }
-
-    .ti-header {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 0.6rem 1rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--accent);
+    .close-modal { cursor: pointer; transition: transform 0.2s; }
+    .close-modal:hover { transform: scale(1.2); }
+    .terminal-intro { font-size: 0.85rem; color: #888; margin-bottom: 0.5rem; }
+    .nav-search-btn {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      border-bottom: 1px solid var(--border2);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .ti-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--red);
+      justify-content: center;
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      color: var(--accent);
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      box-shadow: 0 0 8px var(--red);
-      animation: pulse 2s infinite;
+      transition: all 0.3s ease;
+      cursor: pointer;
     }
-
-    .ti-content {
-      padding: 0.8rem 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      max-height: 120px;
-      overflow-y: auto;
-    }
-
-    .ti-content::-webkit-scrollbar { width: 4px; }
-    .ti-content::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
-
-    .ti-item {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.8rem;
-      color: var(--text2);
-      line-height: 1.4;
-      border-left: 2px solid var(--accent-soft);
-      padding-left: 0.6rem;
-      transition: border-color 0.3s;
-    }
-    .ti-item:hover {
-      border-color: var(--accent);
-      color: var(--text);
-    }
-    .ti-item a { text-decoration: none; color: inherit; display: block; }
-    .ti-date {
-      display: block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      color: var(--muted);
-      margin-top: 0.2rem;
+    .nav-search-btn:hover {
+      background: var(--accent);
+      color: #000;
+      box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+      transform: scale(1.05);
     }
   </style>
 </head>
@@ -3182,22 +3124,15 @@
   <div class="cosmic-bg"></div>
   <div class="grid-overlay"></div>
 
-  <!-- THREAT INTEL WIDGET -->
-  <div class="threat-intel-widget">
-    <div class="ti-header">
-      <div class="ti-dot"></div>
-      <span>Live Threat Intel</span>
-    </div>
-    <div class="ti-content" id="ti-content">
-      <div class="ti-item">Fetching latest CVEs...</div>
-    </div>
-  </div>
-
   <!-- CV DOWNLOAD MODAL -->
   <div class="cv-modal-overlay" id="cv-modal">
     <div class="cv-modal-content">
       <div class="cv-modal-header">
-        <div class="cv-modal-dots"><span></span><span></span><span></span></div>
+        <div class="cv-modal-dots">
+          <span class="close-modal" title="Fermer"></span>
+          <span></span>
+          <span></span>
+        </div>
         <span class="cv-modal-title">Terminal - secure_download.sh</span>
       </div>
       <div class="cv-modal-body" id="cv-modal-body">
@@ -3209,15 +3144,23 @@
   <div class="search-modal-overlay" id="search-modal">
     <div class="search-modal-content">
       <div class="cv-modal-header">
-        <div class="cv-modal-dots"><span></span><span></span><span></span></div>
-        <span class="cv-modal-title">Terminal - Navigation</span>
+        <div class="cv-modal-dots">
+          <span class="close-modal" title="Fermer"></span>
+          <span></span>
+          <span></span>
+        </div>
+        <span class="cv-modal-title">sysadmin@ducarois:~</span>
       </div>
       <div class="search-modal-body">
-        <div class="search-prompt">
-          <span class="prompt-user">user@cyber:</span><span class="prompt-path">~</span>$ 
-          <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" autofocus>
+        <div class="terminal-intro">
+          Welcome to MathisOS v2.4.1<br>
+          Type 'help' to see available commands.
         </div>
         <div id="terminal-output" class="terminal-output"></div>
+        <div class="search-prompt">
+          <span class="prompt-user">sysadmin@ducarois</span>:<span class="prompt-path">~</span>$ 
+          <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" autofocus>
+        </div>
       </div>
     </div>
   </div>
@@ -3251,6 +3194,12 @@
     </ul>
 
     <div class="nav-right">
+      <button class="nav-search-btn" id="btn-open-search" aria-label="Recherche">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="4 17 10 11 4 5"></polyline>
+          <line x1="12" y1="19" x2="20" y2="19"></line>
+        </svg>
+      </button>
       <div class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
       </div>

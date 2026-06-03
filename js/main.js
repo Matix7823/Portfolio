@@ -402,23 +402,25 @@ document.querySelectorAll('.project-preview iframe').forEach(iframe => {
     }
   });
 
-  // Threat Intel Widget
-  const tiContent = document.getElementById('ti-content');
-  if (tiContent) {
-    const mockThreats = [
-      { title: "Critical RCE Vulnerability in Popular Framework (CVE-2026-1045)", date: "2 mins ago", link: "#" },
-      { title: "New Ransomware Strain Targets Active Directory Infrastructures", date: "1 hour ago", link: "#" },
-      { title: "Zero-Day Exploit Found in Web Servers Disclosed", date: "3 hours ago", link: "#" }
-    ];
-    
-    setTimeout(() => {
-      tiContent.innerHTML = mockThreats.map(t => `
-        <div class="ti-item">
-          <a href="${t.link}" target="_blank">${t.title}</a>
-          <span class="ti-date">${t.date}</span>
-        </div>
-      `).join('');
-    }, 1500);
+  // Close Modals (Red Cross)
+  document.querySelectorAll('.close-modal').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const overlay = e.target.closest('.cv-modal-overlay, .search-modal-overlay');
+      if (overlay) overlay.classList.remove('active');
+    });
+  });
+
+  // Open Terminal Search from Nav Button
+  const btnOpenSearch = document.getElementById('btn-open-search');
+  if (btnOpenSearch) {
+    btnOpenSearch.addEventListener('click', () => {
+      const searchModal = document.getElementById('search-modal');
+      const terminalInput = document.getElementById('terminal-input');
+      if (searchModal && terminalInput) {
+        searchModal.classList.add('active');
+        setTimeout(() => terminalInput.focus(), 100);
+      }
+    });
   }
 
   // CV Download Animation
@@ -495,6 +497,10 @@ document.querySelectorAll('.project-preview iframe').forEach(iframe => {
           searchModal.classList.remove('active');
           const section = document.getElementById('contact');
           if (section) section.scrollIntoView({ behavior: 'smooth' });
+        } else if (val === 'help') {
+          terminalOutput.innerHTML = `Commandes disponibles :\n  cd /skills      - Aller à la section Compétences\n  cat contact.txt - Aller à la section Contact\n  clear           - Effacer le terminal\n  sudo            - [ACCÈS REFUSÉ]\n  [mot]           - Recherche textuelle`;
+        } else if (val === 'clear') {
+          terminalOutput.innerHTML = '';
         } else if (val.startsWith('sudo')) {
           terminalOutput.innerHTML = 'ERREUR: Cet incident sera signalé.';
         } else if (val) {
@@ -504,7 +510,8 @@ document.querySelectorAll('.project-preview iframe').forEach(iframe => {
             window.find(val);
           }, 300);
         }
-        if (!val.startsWith('sudo')) {
+        
+        if (!val.startsWith('sudo') && val !== 'help' && val !== 'clear') {
           terminalInput.value = '';
         }
       }
