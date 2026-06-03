@@ -240,26 +240,44 @@
       position: relative;
     }
 
-    .nav-links a::before {
-      content: '';
-      position: absolute;
-      bottom: 2px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      border-radius: 2px;
-      transition: width 0.3s var(--ease);
-      box-shadow: 0 0 8px var(--accent);
-    }
+    .nav-links a::before { display: none; } /* remplacé par limelight */
 
-    .nav-links a:hover {
+    .nav-links a:hover,
+    .nav-links a.nav-active {
       color: var(--accent);
     }
 
-    .nav-links a:hover::before {
-      width: 60%;
+    /* ── Limelight indicator (position: fixed → toujours au top de la nav) ── */
+    .nav-limelight {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 70px;
+      border-radius: 0 0 4px 4px;
+      background: var(--accent);
+      box-shadow: 0 0 16px rgba(0,212,255,0.95), 0 0 44px rgba(0,212,255,0.4);
+      transition: left 0.32s cubic-bezier(0.4,0,0.2,1),
+                  width 0.32s cubic-bezier(0.4,0,0.2,1),
+                  opacity 0.2s;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 600; /* au-dessus de la nav */
+    }
+    .nav-limelight.ll-show { opacity: 1; }
+
+    /* Glow cone tombant sous la barre */
+    .nav-limelight::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300%;
+      height: 65px;
+      background: linear-gradient(to bottom, rgba(0,212,255,0.24), transparent);
+      clip-path: polygon(10% 0, 18% 100%, 82% 100%, 90% 0);
+      pointer-events: none;
     }
 
     .nav-right {
@@ -1343,7 +1361,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
       background-size: 22px 22px;
       pointer-events: none;
       opacity: 0.6;
@@ -1399,14 +1417,14 @@
       z-index: 2;
       background: rgba(0, 0, 0, 0.5);
       border: 1.5px solid currentColor;
-      box-shadow: 0 0 22px -5px currentColor, inset 0 0 18px rgba(0,0,0,0.7);
+      box-shadow: 0 0 22px -5px currentColor, inset 0 0 18px rgba(0, 0, 0, 0.7);
       transition: transform 0.4s, box-shadow 0.4s;
       flex-shrink: 0;
     }
 
     .cert-card:hover .cert-badge {
       transform: scale(1.07);
-      box-shadow: 0 0 40px -4px currentColor, inset 0 0 18px rgba(0,0,0,0.6);
+      box-shadow: 0 0 40px -4px currentColor, inset 0 0 18px rgba(0, 0, 0, 0.6);
     }
 
     .cert-badge svg {
@@ -1499,7 +1517,7 @@
       font-weight: 600;
       padding: 0.28rem 0.7rem;
       border-radius: 5px;
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       background: transparent;
       transition: background 0.2s, border-color 0.2s;
       width: fit-content;
@@ -1507,7 +1525,7 @@
     }
 
     .cert-card:hover .cert-open-chip {
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
       border-color: currentColor;
     }
 
@@ -2487,7 +2505,9 @@
     }
 
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .spinner {
@@ -2558,6 +2578,210 @@
       letter-spacing: 1px;
       margin-top: 0.5rem;
     }
+
+    /* ════════════════════════════════════════════════
+       LAMP EFFECT — hero lighting
+    ════════════════════════════════════════════════ */
+    .hero-lamp {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 62%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .hero-lamp-left,
+    .hero-lamp-right {
+      position: absolute;
+      top: 0;
+      width: min(40rem, 55vw);
+      height: 15rem;
+      opacity: 0.55;
+    }
+
+    .hero-lamp-left {
+      right: 50%;
+      background: conic-gradient(from 70deg at center top,
+        rgba(0,212,255,0.6), transparent 60%);
+      animation: lampBreathe 5s ease-in-out infinite alternate;
+    }
+
+    .hero-lamp-right {
+      left: 50%;
+      background: conic-gradient(from 290deg at center top,
+        rgba(0,212,255,0.6), transparent 60%);
+      animation: lampBreathe 5s ease-in-out 2.5s infinite alternate;
+    }
+
+    .hero-lamp-glow {
+      position: absolute;
+      top: 9.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(28rem, 50vw);
+      height: 2.5rem;
+      border-radius: 50%;
+      background: rgba(0,212,255,0.55);
+      filter: blur(38px);
+      animation: lampPulse 5s ease-in-out infinite alternate;
+    }
+
+    .hero-lamp-line {
+      position: absolute;
+      top: 13.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(30rem, 55vw);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,212,255,0.85), transparent);
+      box-shadow: 0 0 18px rgba(0,212,255,0.5);
+    }
+
+    @keyframes lampBreathe {
+      from { opacity: 0.4; width: min(32rem, 44vw); }
+      to   { opacity: 0.7; width: min(46rem, 62vw); }
+    }
+    @keyframes lampPulse {
+      from { opacity: 0.4; width: min(20rem, 35vw); }
+      to   { opacity: 0.75; width: min(34rem, 55vw); }
+    }
+
+    /* ════════════════════════════════════════════════
+       SCROLL DOWN BUTTON
+    ════════════════════════════════════════════════ */
+    .hero-scroll-down {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+
+    .hero-scroll-down:hover { color: var(--accent); }
+
+    .hero-scroll-down svg {
+      animation: arrowBounce 2.2s ease-in-out infinite;
+    }
+
+    .hero-scroll-down-line {
+      width: 1px;
+      height: 28px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+    }
+
+    @keyframes arrowBounce {
+      0%, 100% { transform: translateY(0); opacity: 0.6; }
+      50%       { transform: translateY(6px); opacity: 1; }
+    }
+
+    /* ════════════════════════════════════════════════
+       SPOTLIGHT CARD — mouse-tracking glow
+    ════════════════════════════════════════════════ */
+    .spotlight-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 0;
+    }
+
+    /* ════════════════════════════════════════════════
+       SLIDE-TO-SEND BUTTON
+    ════════════════════════════════════════════════ */
+    .slide-btn-wrap {
+      margin-top: 0.5rem;
+    }
+
+    .slide-btn-track {
+      position: relative;
+      height: 48px;
+      background: rgba(0,212,255,0.06);
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .slide-btn-fill {
+      position: absolute;
+      inset-block: 0;
+      left: 0;
+      width: 52px;
+      background: linear-gradient(90deg, rgba(0,212,255,0.25), rgba(0,212,255,0.08));
+      border-radius: 8px;
+      transition: width 0.05s linear;
+      pointer-events: none;
+    }
+
+    .slide-btn-handle {
+      position: absolute;
+      top: 50%;
+      left: 4px;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 38px;
+      background: var(--accent);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      box-shadow: 0 4px 16px rgba(0,212,255,0.4);
+      cursor: grab;
+      touch-action: none;
+      transition: box-shadow 0.2s;
+    }
+
+    .slide-btn-handle:active { cursor: grabbing; box-shadow: 0 6px 24px rgba(0,212,255,0.6); }
+
+    .slide-btn-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      pointer-events: none;
+      padding-left: 52px;
+      transition: opacity 0.15s, color 0.2s;
+    }
+
+    .slide-btn-track.sb-done .slide-btn-label {
+      color: var(--accent);
+      padding-left: 0;
+    }
+
+    .slide-btn-track.sb-done .slide-btn-handle {
+      background: var(--green);
+      box-shadow: 0 4px 16px rgba(16,185,129,0.5);
+    }
+
+    @media (max-width: 900px) {
+      .hero-lamp { display: none; }
+      .hero-scroll-down { bottom: 1.2rem; }
+    }
   </style>
 </head>
 
@@ -2585,7 +2809,8 @@
       <div class="logo-text"><span>M.</span>DUCAROIS</div>
     </a>
 
-    <ul class="nav-links">
+    <ul class="nav-links" id="navLinks">
+      <div class="nav-limelight" id="navLimelight"></div>
       <li><a href="#about">Profil</a></li>
       <li><a href="#experience">Expériences</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -2605,6 +2830,15 @@
   <!-- ═══════════════════════ HERO ═══════════════════════ -->
   <section id="hero" class="hero">
     <canvas id="heroCanvas"></canvas>
+
+    <!-- Lamp effect (derrière le contenu) -->
+    <div class="hero-lamp" aria-hidden="true">
+      <div class="hero-lamp-left"></div>
+      <div class="hero-lamp-right"></div>
+      <div class="hero-lamp-glow"></div>
+      <div class="hero-lamp-line"></div>
+    </div>
+
     <div class="hero-wrap hero-content">
       <!-- LEFT: Text -->
       <div class="hero-text">
@@ -2707,6 +2941,15 @@
         </div>
       </div>
     </div>
+
+    <!-- Scroll-down button -->
+    <a href="#about" class="hero-scroll-down" aria-label="Défiler vers le bas">
+      <span>Découvrir</span>
+      <div class="hero-scroll-down-line"></div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </a>
   </section>
 
   <!-- ═══════════════════════ ABOUT ═══════════════════════ -->
@@ -2724,7 +2967,7 @@
             <p>Étudiant en <strong>Bachelor Cybersécurité à Ynov Campus Paris</strong>, j'ai à cœur de développer mon
               expertise en sécurité informatique.</p>
             <p>J'aborde la sécurité avec rigueur et réactivité — <strong>chaque détail compte, comme en Formule
-                1</strong>. Mes stages chez la <span class="accent-word">Caisse des Dépôts</span> et <span
+                1</strong>. C'est stages à la <span class="accent-word">Caisse des Dépôts</span> et chez<span
                 class="accent-word">DHM Tech</span> m'ont permis de toucher au pentesting, à la gestion de crise, et au
               développement web complet.</p>
             <p>Sérieux, dynamique et motivé, je veux contribuer concrètement à la sécurité d'une infrastructure,
@@ -2742,7 +2985,8 @@
           <!-- TryHackMe Stats -->
           <div class="thm-stats-card">
             <div class="thm-header" style="margin-bottom: 1rem;">
-              <img src="assets/images/logo tryhack.png" alt="TryHackMe Logo" style="height: 32px; width: auto; object-fit: contain;">
+              <img src="assets/images/logo tryhack.png" alt="TryHackMe Logo"
+                style="height: 32px; width: auto; object-fit: contain;">
               <h3 style="font-size: 1.4rem;">TryHackMe Stats — Mimo1</h3>
             </div>
             <div class="thm-body" id="thmBody" style="display: block; text-align: center;">
@@ -3311,23 +3555,26 @@
       <div class="certs-grid">
 
         <!-- NET — Networking Basics (Cisco) — PDF disponible -->
-        <a href="assets/certifs/1733144440901.pdf" target="_blank" rel="noopener noreferrer"
-           class="cert-card reveal" style="color:#00a8e0;">
+        <a href="assets/certifs/1733144440901.pdf" target="_blank" rel="noopener noreferrer" class="cert-card reveal"
+          style="color:#00a8e0;">
           <div class="cert-header">
             <div class="cert-glow" style="background:#00a8e0;"></div>
             <span class="cert-provider-tag">Cisco</span>
             <div class="cert-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <circle cx="12" cy="4.5" r="2.5"/><circle cx="4.5" cy="18.5" r="2.5"/><circle cx="19.5" cy="18.5" r="2.5"/>
-                <path d="M12 7v5.5M12 12.5l-5.5 3.8M12 12.5l5.5 3.8"/>
+                <circle cx="12" cy="4.5" r="2.5" />
+                <circle cx="4.5" cy="18.5" r="2.5" />
+                <circle cx="19.5" cy="18.5" r="2.5" />
+                <path d="M12 7v5.5M12 12.5l-5.5 3.8M12 12.5l5.5 3.8" />
               </svg>
               <span class="cert-badge-abbr">NET</span>
             </div>
             <p class="cert-header-label">Networking Basics</p>
             <div class="cert-pdf-overlay">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
               </svg>
               Ouvrir le certificat
             </div>
@@ -3338,8 +3585,9 @@
             <p class="cert-when" style="color:#00a8e0;">Délivré : nov. 2024</p>
             <span class="cert-open-chip" style="color:#00a8e0;">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
               </svg>
               Voir le certificat
             </span>
@@ -3347,23 +3595,24 @@
         </a>
 
         <!-- ETH — Ethical Hacker (Cisco) — PDF disponible -->
-        <a href="assets/certifs/1733144353582.pdf" target="_blank" rel="noopener noreferrer"
-           class="cert-card reveal" style="color:#ef4444;">
+        <a href="assets/certifs/1733144353582.pdf" target="_blank" rel="noopener noreferrer" class="cert-card reveal"
+          style="color:#ef4444;">
           <div class="cert-header">
             <div class="cert-glow" style="background:#ef4444;"></div>
             <span class="cert-provider-tag">Cisco</span>
             <div class="cert-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <rect x="3" y="3" width="18" height="18" rx="3"/>
-                <path d="M7 9l3 3-3 3M13 15h4"/>
+                <rect x="3" y="3" width="18" height="18" rx="3" />
+                <path d="M7 9l3 3-3 3M13 15h4" />
               </svg>
               <span class="cert-badge-abbr">ETH</span>
             </div>
             <p class="cert-header-label">Ethical Hacker</p>
             <div class="cert-pdf-overlay">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
               </svg>
               Ouvrir le certificat
             </div>
@@ -3374,8 +3623,9 @@
             <p class="cert-when" style="color:#ef4444;">Délivré : nov. 2024</p>
             <span class="cert-open-chip" style="color:#ef4444;">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
               </svg>
               Voir le certificat
             </span>
@@ -3383,23 +3633,24 @@
         </a>
 
         <!-- CYB — Intro to Cybersecurity (Cisco) — PDF disponible -->
-        <a href="assets/certifs/1733144503386.pdf" target="_blank" rel="noopener noreferrer"
-           class="cert-card reveal" style="color:#7c3aed;">
+        <a href="assets/certifs/1733144503386.pdf" target="_blank" rel="noopener noreferrer" class="cert-card reveal"
+          style="color:#7c3aed;">
           <div class="cert-header">
             <div class="cert-glow" style="background:#7c3aed;"></div>
             <span class="cert-provider-tag">Cisco</span>
             <div class="cert-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                <path d="M9 12l2 2 4-4"/>
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <path d="M9 12l2 2 4-4" />
               </svg>
               <span class="cert-badge-abbr">CYB</span>
             </div>
             <p class="cert-header-label">Introduction to Cybersecurity</p>
             <div class="cert-pdf-overlay">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
               </svg>
               Ouvrir le certificat
             </div>
@@ -3410,8 +3661,9 @@
             <p class="cert-when" style="color:#7c3aed;">Délivré : nov. 2024</p>
             <span class="cert-open-chip" style="color:#7c3aed;">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
               </svg>
               Voir le certificat
             </span>
@@ -3425,8 +3677,8 @@
             <span class="cert-provider-tag">Cisco</span>
             <div class="cert-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <rect x="7" y="7" width="10" height="10" rx="1"/>
-                <path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/>
+                <rect x="7" y="7" width="10" height="10" rx="1" />
+                <path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3" />
               </svg>
               <span class="cert-badge-abbr">IoT</span>
             </div>
@@ -3446,9 +3698,9 @@
             <span class="cert-provider-tag">OpenClassrooms</span>
             <div class="cert-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <rect x="5" y="11" width="14" height="11" rx="2"/>
-                <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
-                <circle cx="12" cy="16" r="1.5" fill="currentColor"/>
+                <rect x="5" y="11" width="14" height="11" rx="2" />
+                <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                <circle cx="12" cy="16" r="1.5" fill="currentColor" />
               </svg>
               <span class="cert-badge-abbr">VPN</span>
             </div>
@@ -3468,8 +3720,8 @@
             <span class="cert-provider-tag">OpenClassrooms</span>
             <div class="cert-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                <circle cx="12" cy="12" r="3"/>
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
               </svg>
               <span class="cert-badge-abbr">SEC</span>
             </div>
@@ -3489,8 +3741,8 @@
             <span class="cert-provider-tag">OpenClassrooms</span>
             <div class="cert-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <polyline points="16 18 22 12 16 6"/>
-                <polyline points="8 6 2 12 8 18"/>
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
               </svg>
               <span class="cert-badge-abbr">PYT</span>
             </div>
@@ -3640,11 +3892,20 @@
                   placeholder="Décrivez votre besoin, votre entreprise, le poste..." required rows="4"></textarea>
               </div>
 
-              <button type="submit" class="form-submit" id="formSubmitBtn">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <line x1="22" y1="2" x2="11" y2="13" />
-                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                </svg>
+              <!-- Slide-to-send button -->
+              <div class="slide-btn-wrap">
+                <div class="slide-btn-track" id="slideBtnTrack">
+                  <div class="slide-btn-fill" id="slideBtnFill"></div>
+                  <div class="slide-btn-handle" id="slideBtnHandle">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                  </div>
+                  <span class="slide-btn-label" id="slideBtnLabel">Glisser pour envoyer →</span>
+                </div>
+              </div>
+              <!-- Hidden original submit (triggered by JS) -->
+              <button type="submit" class="form-submit" id="formSubmitBtn" style="display:none;">
                 Envoyer le message
               </button>
               <p class="form-note">Le formulaire ouvre votre client email avec le message pré-rempli.</p>
@@ -4385,7 +4646,210 @@
     }
   </script>
 
+  <!-- ═══════ LIMELIGHT NAV + SPOTLIGHT + SLIDE BUTTON ═══════ -->
+  <script>
+  (function () {
+    'use strict';
 
+    /* ─────────────────────────────────────────────────────────
+       1. LIMELIGHT NAV
+       Sliding glowing bar under the active / hovered nav link
+    ───────────────────────────────────────────────────────── */
+    const navUl       = document.getElementById('navLinks');
+    const limelight   = document.getElementById('navLimelight');
+    const allNavLinks = navUl ? [...navUl.querySelectorAll('a')] : [];
+    let   activeLink  = null;
+
+    function moveLimelight(el) {
+      if (!el || !limelight) return;
+      // position: fixed → coordonnées directement en viewport
+      const r = el.getBoundingClientRect();
+      limelight.style.left  = r.left  + 'px';
+      limelight.style.width = r.width + 'px';
+      limelight.classList.add('ll-show');
+    }
+
+    function resetLimelight() {
+      if (activeLink) { moveLimelight(activeLink); return; }
+      if (limelight)  limelight.classList.remove('ll-show');
+    }
+
+    allNavLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => moveLimelight(link));
+      link.addEventListener('mouseleave', resetLimelight);
+      link.addEventListener('focus',      () => moveLimelight(link));
+    });
+
+    // Track active section via IntersectionObserver
+    const sectionIds = ['about','experience','skills','projects','certifications','contact'];
+    const sectionMap = {};
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      const lk = navUl ? navUl.querySelector(`a[href="#${id}"]`) : null;
+      if (el && lk) sectionMap[id] = { el, lk };
+    });
+
+    const llObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const item = sectionMap[entry.target.id];
+          if (item) {
+            allNavLinks.forEach(l => l.classList.remove('nav-active'));
+            item.lk.classList.add('nav-active');
+            activeLink = item.lk;
+            moveLimelight(item.lk);
+          }
+        }
+      });
+    }, { threshold: 0.35 });
+
+    Object.values(sectionMap).forEach(({ el }) => llObserver.observe(el));
+
+    // First section default after slight delay
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        if (!activeLink && allNavLinks.length) {
+          activeLink = allNavLinks[0];
+          moveLimelight(activeLink);
+        }
+      }, 600);
+    });
+
+    /* ─────────────────────────────────────────────────────────
+       2. SPOTLIGHT CARDS
+       Radial glow following mouse cursor on every card
+    ───────────────────────────────────────────────────────── */
+    function initSpotlight() {
+      const selectors = [
+        '.proj-card', '.cert-card', '.edu-card',
+        '.tl-card', '.contact-form-card', '#heroCard'
+      ];
+      const cards = document.querySelectorAll(selectors.join(','));
+
+      cards.forEach(card => {
+        // Ensure position is set
+        const pos = getComputedStyle(card).position;
+        if (pos === 'static') card.style.position = 'relative';
+
+        const overlay = document.createElement('div');
+        overlay.className = 'spotlight-overlay';
+        card.appendChild(overlay);
+
+        card.addEventListener('mousemove', (e) => {
+          const r  = card.getBoundingClientRect();
+          const x  = e.clientX - r.left;
+          const y  = e.clientY - r.top;
+          overlay.style.background =
+            `radial-gradient(380px circle at ${x}px ${y}px,
+              rgba(0,212,255,0.09), transparent 60%)`;
+          overlay.style.opacity = '1';
+        }, { passive: true });
+
+        card.addEventListener('mouseleave', () => {
+          overlay.style.opacity = '0';
+        });
+      });
+    }
+    initSpotlight();
+
+    /* ─────────────────────────────────────────────────────────
+       3. SLIDE-TO-SEND BUTTON
+       Drag the handle to the right to submit the email form
+    ───────────────────────────────────────────────────────── */
+    const track  = document.getElementById('slideBtnTrack');
+    const handle = document.getElementById('slideBtnHandle');
+    const fill   = document.getElementById('slideBtnFill');
+    const label  = document.getElementById('slideBtnLabel');
+    const realBtn = document.getElementById('formSubmitBtn');
+
+    if (track && handle && fill && label && realBtn) {
+      let dragging  = false;
+      let startX    = 0;
+      let curX      = 0;
+      let maxSlide  = 0;
+      let done      = false;
+
+      function calcMax() {
+        maxSlide = track.offsetWidth - handle.offsetWidth - 8;
+      }
+      calcMax();
+      window.addEventListener('resize', calcMax, { passive: true });
+
+      handle.addEventListener('pointerdown', (e) => {
+        if (done) return;
+        dragging = true;
+        startX   = e.clientX - curX;
+        handle.setPointerCapture(e.pointerId);
+        e.preventDefault();
+      });
+
+      handle.addEventListener('pointermove', (e) => {
+        if (!dragging || done) return;
+        const raw  = e.clientX - startX;
+        const clamped = Math.max(0, Math.min(raw, maxSlide));
+        curX = clamped;
+
+        handle.style.transform = `translateX(${clamped}px)`;
+        fill.style.width = (clamped + handle.offsetWidth + 4) + 'px';
+        label.style.opacity = Math.max(0, 1 - (clamped / maxSlide) * 1.4);
+
+        if (clamped >= maxSlide * 0.90) completeSlide();
+      });
+
+      handle.addEventListener('pointerup', () => {
+        if (done) return;
+        dragging = false;
+        if (curX < maxSlide * 0.90) {
+          // Snap back
+          curX = 0;
+          handle.style.transition  = 'transform 0.35s cubic-bezier(0.4,0,0.2,1)';
+          fill.style.transition    = 'width 0.35s cubic-bezier(0.4,0,0.2,1)';
+          label.style.transition   = 'opacity 0.35s';
+          handle.style.transform   = 'translateX(0)';
+          fill.style.width         = (handle.offsetWidth + 4) + 'px';
+          label.style.opacity      = '1';
+          setTimeout(() => {
+            handle.style.transition = '';
+            fill.style.transition   = '';
+            label.style.transition  = '';
+          }, 380);
+        }
+      });
+
+      function completeSlide() {
+        if (done) return;
+        done = true;
+        dragging = false;
+
+        handle.style.transform = `translateX(${maxSlide}px)`;
+        fill.style.width       = '100%';
+        label.style.opacity    = '0';
+        track.classList.add('sb-done');
+
+        setTimeout(() => {
+          label.style.opacity = '1';
+          label.textContent   = '✓ Message envoyé !';
+        }, 250);
+
+        // Trigger actual form submission (opens mail client)
+        setTimeout(() => {
+          realBtn.click();
+          // Reset after 4s so user can send again
+          setTimeout(() => {
+            done = false;
+            curX = 0;
+            track.classList.remove('sb-done');
+            handle.style.transform = 'translateX(0)';
+            fill.style.width = (handle.offsetWidth + 4) + 'px';
+            label.textContent = 'Glisser pour envoyer →';
+            label.style.opacity = '1';
+          }, 4000);
+        }, 600);
+      }
+    }
+
+  })();
+  </script>
 
   <!-- FLAG{b3st_s0c_an4lyst} -->
   <script src="assets/js/hero-canvas.js" defer></script>
